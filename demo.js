@@ -9,6 +9,8 @@ var h = a.height;
 var m = Math;
 var rng = m.random;
 
+var friction = .99;
+
 function make(t){
     var o = {x: rng() * w, y: rng() * h, r: 8, t: t||1, vx: 0, vy: 0};
     all.push(o);
@@ -21,6 +23,8 @@ function update(o){
         o.vx = rng() * 2 - 1;
         o.vy = rng() * 2 - 1;
     }
+    o.vx *= friction;
+    o.vy *= friction;
     o.x += o.vx;
     o.y += o.vy;
     c.beginPath();
@@ -62,7 +66,7 @@ setInterval(function(){
         }
     }
 
-    b.onmousemove = function(e) {
+    b.onmouseup = function(e) {
         var v = {x: e.x - player.x, y: e.y - player.y};
         var len = m.sqrt(v.x*v.x+v.y*v.y);
         v.x /= len;
