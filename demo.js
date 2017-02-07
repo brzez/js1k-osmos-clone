@@ -45,7 +45,15 @@ setInterval(function(){
             var entity_b = all[j];
             var dist = (entity_a.x - entity_b.x) * (entity_a.x - entity_b.x) + (entity_a.y - entity_b.y)*(entity_a.y - entity_b.y);
             if(dist < entity_a.r*entity_a.r+entity_b.r*entity_b.r){
-                console.log('collis')
+                if(entity_a.r < entity_b.r){
+                    var entityToDie = i;
+                    entity_b.r += entity_a.r;
+                }else{
+                    var entityToDie = j;
+                    entity_a.r += entity_b.r;
+                }
+
+                all.splice(entityToDie, 1);
             }
         }
 
@@ -62,4 +70,4 @@ setInterval(function(){
         player.vx = v.x;
         player.vy = v.y;
     };
-}, 30);
+}, 15);
