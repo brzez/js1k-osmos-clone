@@ -1,9 +1,10 @@
 /**
  * TODO:
- * - [] highlight player
+ * - [x] highlight player
  * - [] screen bounds
  * - [] random radius
  * - [] spawn a small thing behind
+ * - [] enemy color depends on player.r/enemy.r
  */
 
 /*
@@ -17,17 +18,17 @@ var h = a.height;
 var m = Math;
 var rng = m.random;
 
-var friction = .99;
+var friction = .995;
 
 function make(t){
-    var o = {x: rng() * w, y: rng() * h, r: 8, t: t||1, vx: 0, vy: 0};
+    var o = {x: rng() * w, y: rng() * h, r: 8, t: t||0, vx: 0, vy: 0};
     all.push(o);
     return o;
 }
 
 // todo: move to setinterval
 function update(o){
-    if(o.t==1 && rng() > .99){
+    if(o.t==0 && rng() > .99){
         o.vx = rng() * 2 - 1;
         o.vy = rng() * 2 - 1;
     }
@@ -36,6 +37,7 @@ function update(o){
     o.x += o.vx;
     o.y += o.vy;
     c.beginPath();
+    c.strokeStyle = o.t ? "#fff" : "#0f0";
     c.arc(o.x, o.y, o.r, 0, 7);
     c.stroke();
 }
@@ -44,7 +46,7 @@ var player = make(2);
 
 setInterval(function(){
     c.save();
-    c.fillStyle = 'rgba(255,255,255,.09)';
+    c.fillStyle = 'rgba(0,0,0,.1)';
     c.fillRect(0,0, w, h);
     c.restore();
     for(var i=all.length;i-->0;){
