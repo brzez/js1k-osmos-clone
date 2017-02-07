@@ -6,8 +6,8 @@
 var all = [];
 var w = a.width;
 var h = a.height;
-
-var rng = Math.random;
+var m = Math;
+var rng = m.random;
 
 function make(t){
     var o = {x: rng() * w, y: rng() * h, r: 8, t: t||1, vx: 0, vy: 0};
@@ -23,7 +23,7 @@ function update(o){
     }
     o.x += o.vx;
     o.y += o.vy;
-    c.fillRect(o.x, o.y, 8, 8);
+    c.fillRect(o.x, o.y, 8 * o.t, 8 * o.t);
 }
 
 var player = make(2);
@@ -36,11 +36,17 @@ setInterval(function(){
     for(var i=all.length;i-->0;){
         update(all[i]);
 
-        if(all.length < 10){make();}
+        if(all.length < 10){
+            make();
+        }
     }
 
     b.onmousemove = function(e) {
-        player.vx = e.x > w/2 ? 1 : -1;
-        player.vy = e.y > h/2 ? 1 : -1;
+        var v = {x: e.x - player.x, y: e.y - player.y};
+        var len = m.sqrt(v.x*v.x+v.y*v.y);
+        v.x /= len;
+        v.y /= len;
+        player.vx = v.x;
+        player.vy = v.y;
     };
 }, 30);
