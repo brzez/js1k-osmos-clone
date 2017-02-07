@@ -28,9 +28,10 @@ function make(t){
 
 // todo: move to setinterval
 function update(o){
-    if(o.t==0 && rng() > .99){
-        o.vx = rng() * 2 - 1;
-        o.vy = rng() * 2 - 1;
+    // ai
+    if(!o.t && rng() > .99){
+        // o.vx = rng() * 2 - 1;
+        // o.vy = rng() * 2 - 1;
     }
     o.vx *= friction;
     o.vy *= friction;
@@ -45,10 +46,8 @@ function update(o){
 var player = make(2);
 
 setInterval(function(){
-    c.save();
-    c.fillStyle = 'rgba(0,0,0,.1)';
+    c.fillStyle = '#000';
     c.fillRect(0,0, w, h);
-    c.restore();
     for(var i=all.length;i-->0;){
         update(all[i]);
 
