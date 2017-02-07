@@ -1,3 +1,11 @@
+/**
+ * TODO:
+ * - [] highlight player
+ * - [] screen bounds
+ * - [] random radius
+ * - [] spawn a small thing behind
+ */
+
 /*
     canvas: window.a
     ctx: window.c
