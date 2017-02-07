@@ -23,18 +23,31 @@ function update(o){
     }
     o.x += o.vx;
     o.y += o.vy;
-    c.fillRect(o.x, o.y, 8 * o.t, 8 * o.t);
+    c.beginPath();
+    c.arc(o.x, o.y, o.r, 0, 7);
+    c.stroke();
 }
 
 var player = make(2);
 
 setInterval(function(){
     c.save();
-    c.fillStyle = 'rgba(255,255,255,.03)';
+    c.fillStyle = 'rgba(255,255,255,.09)';
     c.fillRect(0,0, w, h);
     c.restore();
     for(var i=all.length;i-->0;){
         update(all[i]);
+
+        // collision
+        for(var j=i;j<all.length;j++){
+            if(i == j) continue;
+            var entity_a = all[i];
+            var entity_b = all[j];
+            var dist = (entity_a.x - entity_b.x) * (entity_a.x - entity_b.x) + (entity_a.y - entity_b.y)*(entity_a.y - entity_b.y);
+            if(dist < entity_a.r*entity_a.r+entity_b.r*entity_b.r){
+                console.log('collis')
+            }
+        }
 
         if(all.length < 10){
             make();
