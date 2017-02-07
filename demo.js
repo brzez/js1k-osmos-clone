@@ -1,7 +1,7 @@
 /**
  * TODO:
  * - [x] highlight player
- * - [] screen bounds
+ * - [x] screen bounds
  * - [] random radius
  * - [] spawn a small thing behind
  * - [] enemy color depends on player.r/enemy.r
@@ -37,6 +37,11 @@ function update(o){
     o.vy *= friction;
     o.x += o.vx;
     o.y += o.vy;
+
+    // screen bounds
+    o.x = m.max(0, m.min(w, o.x));
+    o.y = m.max(0, m.min(h, o.y));
+
     c.beginPath();
     c.strokeStyle = o.t ? "#fff" : "#0f0";
     c.arc(o.x, o.y, o.r, 0, 7);
