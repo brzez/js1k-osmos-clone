@@ -1,0 +1,15 @@
+{
+  "name": "js1k-2017",
+  "version": "1.0.0",
+  "description": "js1k 2017 demo",
+  "main": "demo.js",
+  "scripts": {
+    "build": "uglifyjs demo.js --compress --mangle toplevel,eval > demo.min.js",
+    "test": "npm run build && cat demo.min.js | wc -c"
+  },
+  "author": "pawel.brzezinski <pawel@brzez.com>",
+  "license": "ISC",
+  "devDependencies": {
+    "uglify-js": "^2.7.5"
+  }
+}

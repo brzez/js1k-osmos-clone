@@ -121,10 +121,7 @@
       var TOKEN_RELOAD_ONORIENTATIONCHANGE = true;
     </script>
     <script type="demo">
-      // THIS IS WHERE YOUR DEMO GOES
-      document.write('see console');
-      console.log('demo here', window.a, b, window.c, window.g, window.d);
-      // END
+    <?=file_get_contents("demo.js")?>
     </script>
     <script>
       (function(){var doc=document;var header=doc.getElementsByTagName("header")[0];var firstChild=header.firstChild;var p=doc.getElementsByClassName("p")[0];
