@@ -26,28 +26,6 @@ function make(t){
     return o;
 }
 
-// todo: move to setinterval
-function update(o){
-    // ai
-    if(!o.t && rng() > .99){
-        // o.vx = rng() * 2 - 1;
-        // o.vy = rng() * 2 - 1;
-    }
-    o.vx *= friction;
-    o.vy *= friction;
-    o.x += o.vx;
-    o.y += o.vy;
-
-    // screen bounds
-    o.x = m.max(0, m.min(w, o.x));
-    o.y = m.max(0, m.min(h, o.y));
-
-    c.beginPath();
-    c.strokeStyle = o.t ? "#fff" : "#0f0";
-    c.arc(o.x, o.y, o.r, 0, 7);
-    c.stroke();
-}
-
 var player = make(2);
 player.r = 30;
 
@@ -55,7 +33,25 @@ setInterval(function(){
     c.fillStyle = '#000';
     c.fillRect(0,0, w, h);
     for(var i=all.length;i-->0;){
-        update(all[i]);
+        var o = all[i];
+        // ai
+        if(!o.t && rng() > .99){
+            // o.vx = rng() * 2 - 1;
+            // o.vy = rng() * 2 - 1;
+        }
+        o.vx *= friction;
+        o.vy *= friction;
+        o.x += o.vx;
+        o.y += o.vy;
+
+        // screen bounds
+        o.x = m.max(0, m.min(w, o.x));
+        o.y = m.max(0, m.min(h, o.y));
+
+        c.beginPath();
+        c.strokeStyle = o.t ? "#fff" : "#0f0";
+        c.arc(o.x, o.y, o.r, 0, 7);
+        c.stroke();
 
         var die = all[i].r < 1;
 
