@@ -33,37 +33,36 @@ setInterval(function(){
     c.fillStyle = '#000';
     c.fillRect(0,0, w, h);
     for(var i=all.length;i-->0;){
-        var o = all[i];
+        var self = all[i];
         // ai
-        if(!o.t && rng() > .99){
-            // o.vx = rng() * 2 - 1;
-            // o.vy = rng() * 2 - 1;
+        if(!self.t && rng() > .99){
+            // self.vx = rng() * 2 - 1;
+            // self.vy = rng() * 2 - 1;
         }
-        o.vx *= friction;
-        o.vy *= friction;
-        o.x += o.vx;
-        o.y += o.vy;
+        self.vx *= friction;
+        self.vy *= friction;
+        self.x += self.vx;
+        self.y += self.vy;
 
         // screen bounds
-        o.x = m.max(0, m.min(w, o.x));
-        o.y = m.max(0, m.min(h, o.y));
+        self.x = m.max(0, m.min(w, self.x));
+        self.y = m.max(0, m.min(h, self.y));
 
         c.beginPath();
-        c.strokeStyle = o.t ? "#fff" : "#0f0";
-        c.arc(o.x, o.y, o.r, 0, 7);
+        c.strokeStyle = self.t ? "#fff" : "#0f0";
+        c.arc(self.x, self.y, self.r, 0, 7);
         c.stroke();
 
-        var die = all[i].r < 1;
+        var die = self.r < 1;
 
         // collision
         for(var j=0;j<all.length;j++){
             if(i == j) continue;
-            var entity_a = all[i];
             var entity_b = all[j];
-            var dist = m.sqrt((entity_a.x - entity_b.x) * (entity_a.x - entity_b.x) + (entity_a.y - entity_b.y)*(entity_a.y - entity_b.y));
-            if(dist < entity_a.r+entity_b.r){
-                if(entity_a.r <= entity_b.r){
-                    entity_b.r += entity_a.r;
+            var dist = m.sqrt((self.x - entity_b.x) * (self.x - entity_b.x) + (self.y - entity_b.y)*(self.y - entity_b.y));
+            if(dist < self.r+entity_b.r){
+                if(self.r <= entity_b.r){
+                    entity_b.r += self.r;
                     die = 1;
                     break;
                 }
