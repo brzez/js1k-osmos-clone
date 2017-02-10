@@ -3,7 +3,7 @@
  * - [x] highlight player
  * - [x] screen bounds
  * - [] random radius
- * - [] spawn a small thing behind
+ * - [x] spawn a small thing behind
  * - [] enemy color depends on player.r/enemy.r
  */
 
@@ -72,7 +72,7 @@ setInterval(function(){
         }
         
 
-        if(all.length < 210){
+        if(all.length < 1){
             make();
         }
     }
@@ -84,5 +84,14 @@ setInterval(function(){
         v.y /= len;
         player.vx = v.x;
         player.vy = v.y;
+
+        var poop = make();
+        var f = player.r * .1;
+        player.r -= f;
+        poop.r = f;
+        poop.x = player.x + player.vx * -1 * (player.r + poop.r);
+        poop.y = player.y + player.vy * -1 * (player.r + poop.r);
+        poop.vx = player.vx * -1;
+        poop.vy = player.vy * -1;
     };
 }, 15);
