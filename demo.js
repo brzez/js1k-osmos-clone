@@ -49,12 +49,15 @@ function update(o){
 }
 
 var player = make(2);
+player.r = 30;
 
 setInterval(function(){
     c.fillStyle = '#000';
     c.fillRect(0,0, w, h);
     for(var i=all.length;i-->0;){
         update(all[i]);
+
+        var die = all[i].r < 1;
 
         // collision
         for(var j=0;j<all.length;j++){
@@ -65,11 +68,13 @@ setInterval(function(){
             if(dist < entity_a.r+entity_b.r){
                 if(entity_a.r <= entity_b.r){
                     entity_b.r += entity_a.r;
-                    all.splice(i, 1);
+                    die = 1;
                     break;
                 }
             }
         }
+
+        if(die) all.splice(i, 1);       
         
 
         if(all.length < 1){
