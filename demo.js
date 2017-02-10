@@ -57,25 +57,22 @@ setInterval(function(){
         update(all[i]);
 
         // collision
-        for(var j=i;j<all.length;j++){
+        for(var j=0;j<all.length;j++){
             if(i == j) continue;
             var entity_a = all[i];
             var entity_b = all[j];
             var dist = (entity_a.x - entity_b.x) * (entity_a.x - entity_b.x) + (entity_a.y - entity_b.y)*(entity_a.y - entity_b.y);
             if(dist < entity_a.r*entity_a.r+entity_b.r*entity_b.r){
-                if(entity_a.r < entity_b.r){
-                    var entityToDie = i;
+                if(entity_a.r <= entity_b.r){
                     entity_b.r += entity_a.r;
-                }else{
-                    var entityToDie = j;
-                    entity_a.r += entity_b.r;
+                    all.splice(i, 1);
+                    break;
                 }
-
-                all.splice(entityToDie, 1);
             }
         }
+        
 
-        if(all.length < 10){
+        if(all.length < 210){
             make();
         }
     }
