@@ -5,6 +5,7 @@
  * - [] random radius
  * - [x] spawn a small thing behind
  * - [] enemy color depends on player.r/enemy.r
+ * - [] ai / logic
  */
 
 /*
@@ -36,8 +37,8 @@ setInterval(function(){
         var self = all[i];
         // ai
         if(!self.t && rng() > .99){
-            // self.vx = rng() * 2 - 1;
-            // self.vy = rng() * 2 - 1;
+            self.vx = rng() * 2 - 1;
+            self.vy = rng() * 2 - 1;
         }
         self.vx *= friction;
         self.vy *= friction;
