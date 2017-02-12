@@ -89,9 +89,9 @@ setInterval(function(){
         var f = player.r * .1;
         player.r -= f;
         poop.r = f;
-        poop.x = player.x + player.vx * -1 * (player.r + poop.r);
-        poop.y = player.y + player.vy * -1 * (player.r + poop.r);
         poop.vx = player.vx * -1;
         poop.vy = player.vy * -1;
+        poop.x = player.x + poop.vx * (player.r + poop.r);
+        poop.y = player.y + poop.vy * (player.r + poop.r);
     };
 }, 15);
