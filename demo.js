@@ -30,6 +30,20 @@ function make(t){
 var player = make(2);
 player.r = 30;
 
+function move(o, vx, vy){
+    o.vx = vx;
+    o.vy = vy;
+
+    var poop = make();
+    var f = o.r * .1;
+    o.r -= f;
+    poop.r = f;
+    poop.vx = o.vx * -1;
+    poop.vy = o.vy * -1;
+    poop.x = o.x + poop.vx * (o.r + poop.r);
+    poop.y = o.y + poop.vy * (o.r + poop.r);
+}
+
 setInterval(function(){
     c.fillStyle = '#000';
     c.fillRect(0,0, w, h);
@@ -37,8 +51,7 @@ setInterval(function(){
         var self = all[i];
         // ai
         if(!self.t && rng() > .99){
-            self.vx = rng() * 2 - 1;
-            self.vy = rng() * 2 - 1;
+            move(self, rng() * 2 - 1, rng() * 2 - 1)
         }
         self.vx *= friction;
         self.vy *= friction;
@@ -73,7 +86,7 @@ setInterval(function(){
         if(die) all.splice(i, 1);       
         
 
-        if(all.length < 1){
+        if(all.length < 9){
             make();
         }
     }
@@ -83,16 +96,6 @@ setInterval(function(){
         var len = m.sqrt(v.x*v.x+v.y*v.y);
         v.x /= len;
         v.y /= len;
-        player.vx = v.x;
-        player.vy = v.y;
-
-        var poop = make();
-        var f = player.r * .1;
-        player.r -= f;
-        poop.r = f;
-        poop.vx = player.vx * -1;
-        poop.vy = player.vy * -1;
-        poop.x = player.x + poop.vx * (player.r + poop.r);
-        poop.y = player.y + poop.vy * (player.r + poop.r);
+        move(player, v.x, v.y);
     };
 }, 15);
