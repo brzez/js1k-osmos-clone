@@ -51,7 +51,8 @@ setInterval(function(){
         var self = all[i];
         // ai
         if(!self.t && rng() > .99){
-            move(self, rng() * 2 - 1, rng() * 2 - 1)
+            var r = 7 * rng();
+            move(self, m.cos(r), m.sin(r));
         }
         self.vx *= friction;
         self.vy *= friction;
