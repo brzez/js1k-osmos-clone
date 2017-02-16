@@ -2,7 +2,7 @@
  * TODO:
  * - [x] highlight player
  * - [x] screen bounds
- * - [] random radius
+ * - [x] random radius
  * - [x] spawn a small thing behind
  * - [] enemy color depends on player.r/enemy.r
  * - [] ai / logic
@@ -87,8 +87,9 @@ setInterval(function(){
         if(die) all.splice(i, 1);       
         
 
-        if(all.length < 9){
-            make();
+        while(all.length < 9){
+            var o = make();
+            o.r = player.r * all.length * .15;
         }
     }
 
