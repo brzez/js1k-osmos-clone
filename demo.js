@@ -6,6 +6,7 @@
  * - [x] spawn a small thing behind
  * - [] enemy color depends on player.r/enemy.r
  * - [] ai / logic
+ * - [] eating anim 
  */
 
 /*
@@ -22,7 +23,7 @@ var rng = m.random;
 var friction = .995;
 
 function make(t){
-    var o = {x: rng() * w, y: rng() * h, r: 8, t: t||0, vx: 0, vy: 0};
+    var o = {x: rng() * w, y: rng() * h, r: 8, t: t||0, vx: 0, vy: 0, a: 0};
     all.push(o);
     return o;
 }
@@ -63,11 +64,12 @@ setInterval(function(){
         self.x = m.max(0, m.min(w, self.x));
         self.y = m.max(0, m.min(h, self.y));
 
+        self.a += (self.r - self.a) * .1;
+
         c.beginPath();
         c.strokeStyle = self.t ? "#fff" : "#0f0";
-        c.arc(self.x, self.y, self.r, 0, 7);
+        c.arc(self.x, self.y, self.a, 0, 7);
         c.stroke();
-
         var die = self.r < 1;
 
         // collision
