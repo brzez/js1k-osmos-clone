@@ -55,6 +55,8 @@ function wave(){
     }
 }
 
+var counter = 0;
+
 setInterval(function(){
     c.fillStyle = '#000';
     c.fillRect(0,0, w, h);
@@ -63,7 +65,7 @@ setInterval(function(){
     for(var i=all.length;i-->0;){
         var self = all[i];
         // ai
-        if(!self.t && rng() > .99){
+        if(!self.t && rng() > .5 && !(counter++ % 100)){
             var r = 7 * rng();
             move(self, m.cos(r), m.sin(r));
         }
