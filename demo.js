@@ -61,7 +61,11 @@ setInterval(function(){
     c.fillStyle = '#000';
     c.fillRect(0,0, w, h);
     c.fillStyle = "#fff";
-    c.fillText("Wave: " + waveCounter, 0, 9)
+    c.fillText("Wave: " + waveCounter, 0, 9);
+
+    // restart when dead
+    player.d && confirm("Dead. Restart?") && top.reload();
+
     for(var i=all.length;i-->0;){
         var self = all[i];
         // ai
@@ -93,7 +97,7 @@ setInterval(function(){
             if(dist(self, entity_b) < self.r+entity_b.r){
                 if(self.r <= entity_b.r){
                     entity_b.r += self.r;
-                    die = 1;
+                    self.d = die = 1;
                     break;
                 }
             }
