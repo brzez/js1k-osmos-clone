@@ -78,7 +78,8 @@ setInterval(function(){
         self.a += (self.r - self.a) * .1;
 
         c.beginPath();
-        c.strokeStyle = self.t ? "#fff" : player.a < self.a ? 'rgb('+(self.a/player.a * 255 | 0)+', 0,0)' : 'rgb(0, '+(player.a/self.a * 255 | 0)+',0)';
+        c.strokeStyle = self.t ? "#fff" : 'rgb('+(self.a/player.a * 255 | 0)+', '+(player.a/self.a * 255 | 0)+',0)';
+        c.lineWidth = m.abs(self.vx) + m.abs(self.vx) + 1;
         c.arc(self.x, self.y, self.a, 0, 7);
         c.stroke();
         var die = self.r < 1;
