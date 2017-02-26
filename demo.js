@@ -4,7 +4,7 @@
  * - [x] screen bounds
  * - [x] random radius
  * - [x] spawn a small thing behind
- * - [] enemy color depends on player.r/enemy.r
+ * - [x] enemy color depends on player.r/enemy.r
  * - [] ai / logic
  * - [x] eating anim 
  */
@@ -79,8 +79,9 @@ setInterval(function(){
 
         self.a += (self.r - self.a) * .1;
 
+        var color = player.a < self.a ? `rgb(${self.a/player.a * 255 | 0}, 0,0)` : `rgb(0, ${player.a/self.a * 255 | 0},0)`
         c.beginPath();
-        c.strokeStyle = self.t ? "#fff" : "#0f0";
+        c.strokeStyle = self.t ? "#fff" : color;
         c.arc(self.x, self.y, self.a, 0, 7);
         c.stroke();
         var die = self.r < 1;
