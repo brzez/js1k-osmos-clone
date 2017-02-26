@@ -24,34 +24,31 @@ var friction = .9995;
 
 var waveCounter = 0;
 
-function make(t){
-    var o = {x: rng() * w, y: rng() * h, r: 8, t: t||0, vx: 0, vy: 0, a: 0};
+function make(t, r){
+    var o; 
+    var maxTries = 100;
+    do{
+        o = {x: rng() * w, y: rng() * h, r: r||8, t: t||0, vx: 0, vy: 0, a: 0};
+    }while(all.filter(function(entity){
+        var dist = m.sqrt((o.x - entity.x) * (o.x - entity.x) + (o.y - entity.y)*(o.y - entity.y));
+        return dist < (o.r + entity.r);
+    }).length && maxTries--);
+
     all.push(o);
     return o;
 }
 
-var player = make(2);
-player.r = 30;
+var player = make(2, 30);
 
 function move(o, vx, vy){
     o.vx = vx;
     o.vy = vy;
-
-    // var poop = make();
-    // var f = o.r * .1;
-    // o.r -= f;
-    // poop.r = f;
-    // poop.vx = o.vx * -1;
-    // poop.vy = o.vy * -1;
-    // poop.x = o.x + poop.vx * (o.r + poop.r);
-    // poop.y = o.y + poop.vy * (o.r + poop.r);
 }
 
 function wave(){
     waveCounter++;
     for(var i=15;i--;){
-        var o = make();
-        o.r = player.r * i / 15 + .3;
+        make(0, player.r * i / 15 + .3);
     }
 }
 
