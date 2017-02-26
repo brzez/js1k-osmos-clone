@@ -36,9 +36,9 @@ function make(t, r){
 
 var player = make(2);
 
-function move(o, vx, vy){
-    o.vx = vx * 5;
-    o.vy = vy * 5;
+function move(o, r){
+    o.vx = m.cos(r) * 5;
+    o.vy = m.sin(r) * 5;
 }
 
 function wave(){
@@ -66,7 +66,7 @@ setInterval(function(){
         // ai
         if(!self.t && rng() > .5 && !(counter++ % 100)){
             var r = 7 * rng();
-            move(self, m.cos(r), m.sin(r));
+            move(self, r);
         }
         self.vx *= friction;
         self.vy *= friction;
@@ -107,9 +107,6 @@ setInterval(function(){
 }, 15);
 
 b.onmouseup = function(e) {
-    var v = {x: e.x - player.x, y: e.y - player.y};
-    var len = m.sqrt(v.x*v.x+v.y*v.y);
-    v.x /= len;
-    v.y /= len;
-    move(player, v.x, v.y);
+    var r = m.atan2(e.y - player.y, e.x - player.x);
+    move(player, r);
 };
