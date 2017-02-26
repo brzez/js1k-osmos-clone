@@ -29,7 +29,7 @@ function dist(a, b){
 }
 
 function make(t, r){
-    var o = {x: rng() * w, y: rng() * h, r: r||8, t: t||0, vx: 0, vy: 0, a: 0}; 
+    var o = {x: rng() * w, y: rng() * h, r: r, t: t||0, vx: 0, vy: 0, a: 0}; 
     all.push(o);
     return o;
 }
@@ -57,6 +57,9 @@ setInterval(function(){
     c.fillStyle = "#fff";
     c.fillText("Wave: " + waveCounter, 0, 9);
 
+    if(all.length == 1){
+        wave();
+    }
 
     for(var i=all.length;i-->0;){
         var self = all[i];
@@ -86,21 +89,16 @@ setInterval(function(){
         for(var j=0;j<all.length;j++){
             if(i == j) continue;
             var entity_b = all[j];
-            if(dist(self, entity_b) < self.r+entity_b.r){
-                if(self.r <= entity_b.r){
-                    entity_b.r += self.r;
-                    self.d = die = 1;
-                    break;
-                }
+            if(dist(self, entity_b) < self.r + entity_b.r && self.r < entity_b.r){
+                entity_b.r += self.r;
+                self.d = die = 1;
+                break;
             }
         }
 
         if(die){
             all.splice(i, 1);
         }
-    }
-    if(all.length == 1){
-        wave();
     }
 
     // restart when dead
