@@ -20,7 +20,9 @@ var h = a.height;
 var m = Math;
 var rng = m.random;
 
-var friction = .995;
+var friction = .9995;
+
+var waveCounter = 0;
 
 function make(t){
     var o = {x: rng() * w, y: rng() * h, r: 8, t: t||0, vx: 0, vy: 0, a: 0};
@@ -35,19 +37,29 @@ function move(o, vx, vy){
     o.vx = vx;
     o.vy = vy;
 
-    var poop = make();
-    var f = o.r * .1;
-    o.r -= f;
-    poop.r = f;
-    poop.vx = o.vx * -1;
-    poop.vy = o.vy * -1;
-    poop.x = o.x + poop.vx * (o.r + poop.r);
-    poop.y = o.y + poop.vy * (o.r + poop.r);
+    // var poop = make();
+    // var f = o.r * .1;
+    // o.r -= f;
+    // poop.r = f;
+    // poop.vx = o.vx * -1;
+    // poop.vy = o.vy * -1;
+    // poop.x = o.x + poop.vx * (o.r + poop.r);
+    // poop.y = o.y + poop.vy * (o.r + poop.r);
+}
+
+function wave(){
+    waveCounter++;
+    for(var i=15;i--;){
+        var o = make();
+        o.r = player.r * i / 15 + .3;
+    }
 }
 
 setInterval(function(){
     c.fillStyle = '#000';
     c.fillRect(0,0, w, h);
+    c.fillStyle = "#fff";
+    c.fillText("Wave: " + waveCounter, 0, 9)
     for(var i=all.length;i-->0;){
         var self = all[i];
         // ai
@@ -86,15 +98,14 @@ setInterval(function(){
             }
         }
 
-        if(die) all.splice(i, 1);       
-        
-
-        while(all.length < 9){
-            var o = make();
-            o.r = player.r * all.length * .15;
+        if(die){
+            all.splice(i, 1);
         }
     }
-
+    if(all.length == 1){
+        wave();
+    }
+    
     b.onmouseup = function(e) {
         var v = {x: e.x - player.x, y: e.y - player.y};
         var len = m.sqrt(v.x*v.x+v.y*v.y);
