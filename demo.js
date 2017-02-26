@@ -24,14 +24,17 @@ var friction = .9995;
 
 var waveCounter = 0;
 
+function dist(a, b){
+    return m.sqrt((a.x - b.x) * (a.x - b.x) + (a.y - b.y)*(a.y - b.y));
+}
+
 function make(t, r){
     var o; 
     var maxTries = 100;
     do{
         o = {x: rng() * w, y: rng() * h, r: r||8, t: t||0, vx: 0, vy: 0, a: 0};
     }while(all.filter(function(entity){
-        var dist = m.sqrt((o.x - entity.x) * (o.x - entity.x) + (o.y - entity.y)*(o.y - entity.y));
-        return dist < (o.r + entity.r);
+        return dist(o, entity) < (o.r + entity.r);
     }).length && maxTries--);
 
     all.push(o);
@@ -85,8 +88,7 @@ setInterval(function(){
         for(var j=0;j<all.length;j++){
             if(i == j) continue;
             var entity_b = all[j];
-            var dist = m.sqrt((self.x - entity_b.x) * (self.x - entity_b.x) + (self.y - entity_b.y)*(self.y - entity_b.y));
-            if(dist < self.r+entity_b.r){
+            if(dist(self, entity_b) < self.r+entity_b.r){
                 if(self.r <= entity_b.r){
                     entity_b.r += self.r;
                     die = 1;
