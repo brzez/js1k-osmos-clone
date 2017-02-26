@@ -41,7 +41,7 @@ function make(t, r){
     return o;
 }
 
-var player = make(2, 30);
+var player = make(2);
 
 function move(o, vx, vy){
     o.vx = vx * 5;
@@ -50,6 +50,7 @@ function move(o, vx, vy){
 
 function wave(){
     waveCounter++;
+    player.r = rng() * 30 + 8;
     for(var i=15;i--;){
         make(0, player.r * i / 15 + 8);
     }
