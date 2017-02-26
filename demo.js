@@ -20,7 +20,7 @@ var h = a.height;
 var m = Math;
 var rng = m.random;
 
-var friction = .9995;
+var friction = .95;
 
 var waveCounter = 0;
 
@@ -44,8 +44,8 @@ function make(t, r){
 var player = make(2, 30);
 
 function move(o, vx, vy){
-    o.vx = vx;
-    o.vy = vy;
+    o.vx = vx * 5;
+    o.vy = vy * 5;
 }
 
 function wave(){
@@ -108,7 +108,7 @@ setInterval(function(){
     if(all.length == 1){
         wave();
     }
-    
+
     // restart when dead
     player.d && confirm("Dead. Restart?") && top.reload();
     
