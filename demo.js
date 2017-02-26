@@ -51,7 +51,7 @@ function move(o, vx, vy){
 function wave(){
     waveCounter++;
     for(var i=15;i--;){
-        make(0, player.r * i / 15 + .3);
+        make(0, player.r * i / 15 + 8);
     }
 }
 
@@ -63,8 +63,6 @@ setInterval(function(){
     c.fillStyle = "#fff";
     c.fillText("Wave: " + waveCounter, 0, 9);
 
-    // restart when dead
-    player.d && confirm("Dead. Restart?") && top.reload();
 
     for(var i=all.length;i-->0;){
         var self = all[i];
@@ -111,11 +109,15 @@ setInterval(function(){
         wave();
     }
     
-    b.onmouseup = function(e) {
-        var v = {x: e.x - player.x, y: e.y - player.y};
-        var len = m.sqrt(v.x*v.x+v.y*v.y);
-        v.x /= len;
-        v.y /= len;
-        move(player, v.x, v.y);
-    };
+    // restart when dead
+    player.d && confirm("Dead. Restart?") && top.reload();
+    
 }, 15);
+
+b.onmouseup = function(e) {
+    var v = {x: e.x - player.x, y: e.y - player.y};
+    var len = m.sqrt(v.x*v.x+v.y*v.y);
+    v.x /= len;
+    v.y /= len;
+    move(player, v.x, v.y);
+};
