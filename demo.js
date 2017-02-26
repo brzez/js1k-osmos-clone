@@ -52,8 +52,6 @@ function wave(){
 setInterval(function(){
     c.fillStyle = '#000';
     c.fillRect(0,0, w, h);
-    c.fillStyle = "#fff";
-    c.fillText("Wave: " + waveCounter, 0, 9);
 
     if(all.length == 1){
         wave();
@@ -101,7 +99,7 @@ setInterval(function(){
     }
 
     // restart when dead
-    player.d && confirm("Dead. Restart?") && top.reload();
+    player.d && confirm("Died\nWave: " + waveCounter + "\nRestart?") && top.reload();
     
 }, 15);
 
