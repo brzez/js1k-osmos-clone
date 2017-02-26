@@ -6,7 +6,7 @@
  * - [x] spawn a small thing behind
  * - [] enemy color depends on player.r/enemy.r
  * - [] ai / logic
- * - [] eating anim 
+ * - [x] eating anim 
  */
 
 /*
