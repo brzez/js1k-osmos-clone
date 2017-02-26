@@ -49,8 +49,6 @@ function wave(){
     }
 }
 
-var counter = 0;
-
 setInterval(function(){
     c.fillStyle = '#000';
     c.fillRect(0,0, w, h);
@@ -64,7 +62,7 @@ setInterval(function(){
     for(var i=all.length;i-->0;){
         var self = all[i];
         // ai
-        if(!self.t && rng() > .5 && !(counter++ % 100)){
+        if(!self.t && rng() > .99){
             var r = 7 * rng();
             move(self, r);
         }
@@ -79,9 +77,8 @@ setInterval(function(){
 
         self.a += (self.r - self.a) * .1;
 
-        var color = player.a < self.a ? 'rgb('+(self.a/player.a * 255 | 0)+', 0,0)' : 'rgb(0, '+(player.a/self.a * 255 | 0)+',0)'
         c.beginPath();
-        c.strokeStyle = self.t ? "#fff" : color;
+        c.strokeStyle = self.t ? "#fff" : player.a < self.a ? 'rgb('+(self.a/player.a * 255 | 0)+', 0,0)' : 'rgb(0, '+(player.a/self.a * 255 | 0)+',0)';
         c.arc(self.x, self.y, self.a, 0, 7);
         c.stroke();
         var die = self.r < 1;
