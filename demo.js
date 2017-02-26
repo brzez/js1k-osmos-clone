@@ -29,14 +29,7 @@ function dist(a, b){
 }
 
 function make(t, r){
-    var o; 
-    var maxTries = 100;
-    do{
-        o = {x: rng() * w, y: rng() * h, r: r||8, t: t||0, vx: 0, vy: 0, a: 0};
-    }while(all.filter(function(entity){
-        return dist(o, entity) < (o.r + entity.r);
-    }).length && maxTries--);
-
+    var o = {x: rng() * w, y: rng() * h, r: r||8, t: t||0, vx: 0, vy: 0, a: 0}; 
     all.push(o);
     return o;
 }
