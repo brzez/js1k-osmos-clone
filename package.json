@@ -4,7 +4,11 @@
   "description": "js1k 2017 demo",
   "main": "demo.js",
   "scripts": {
-    "build": "uglifyjs demo.js --compress --mangle toplevel,eval > demo.min.js",
+    "build": "npm run uglify && npm run sed",
+    "uglify": "uglifyjs demo.js --compress --mangle toplevel,eval > demo.min.js",
+    "sed": "npm run sed1 && npm run sed2",
+    "sed1": "sed -ie 's/setInterval(function()/setInterval(()=>/g' demo.min.js",
+    "sed2":"sed -Ei 's/function\\(([a-Z, ]+)\\)/(\\1)=>/g' demo.min.js",
     "test": "npm run build && cat demo.min.js | wc -c"
   },
   "author": "pawel.brzezinski <pawel@brzez.com>",
