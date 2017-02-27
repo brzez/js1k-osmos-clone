@@ -50,8 +50,8 @@ function move(o, r){
 function wave(){
     waveCounter++;
     player.r = rng() * 30 + 8;
-    for(var i=15;i--;){
-        make(0, player.r * i / 15 + 8);
+    for(var i=9;i--;){
+        make(0, player.r * i / 9 + 8);
     }
 }
 
@@ -89,9 +89,8 @@ setInterval(function(){
 
         // collision
         for(var j=0;j<all.length;j++){
-            if(i == j) continue;
             var entity_b = all[j];
-            if(dist(self, entity_b) < self.r + entity_b.r && self.r < entity_b.r){
+            if(i != j && dist(self, entity_b) < self.r + entity_b.r && self.r < entity_b.r){
                 entity_b.r += self.r;
                 self.d = die = 1;
                 break;
@@ -104,7 +103,7 @@ setInterval(function(){
     }
 
     // restart when dead
-    player.d && confirm("Died\nWave: " + waveCounter + "\nRestart?") && top.reload();
+    player.d && confirm("Wave: " + waveCounter + "\nAgain?") && top.reload();
     
 }, 15);
 
