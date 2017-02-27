@@ -29,7 +29,13 @@ function dist(a, b){
 }
 
 function make(t, r){
-    var o = {x: rng() * w, y: rng() * h, r: r, t: t||0, vx: 0, vy: 0, a: 0}; 
+    var o;
+    do{
+        o = {x: rng() * w, y: rng() * h, r: r, t: t||0, vx: 0, vy: 0, a: 0};
+    }while(all.filter(function(e){
+        return dist(e, o) < e.r + o.r && e != o;
+    }).length);
+
     all.push(o);
     return o;
 }
