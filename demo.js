@@ -56,7 +56,7 @@ function wave(){
 }
 
 setInterval(function(){
-    c.fillStyle = '#000';
+    c.fillStyle = 0;
     c.fillRect(0,0, w, h);
 
     if(all.length == 1){
@@ -85,19 +85,17 @@ setInterval(function(){
         c.lineWidth = m.abs(self.vx) + m.abs(self.vx) + 1;
         c.arc(self.x, self.y, self.a, 0, 7);
         c.stroke();
-        var die = self.r < 1;
 
         // collision
         for(var j=0;j<all.length;j++){
             var entity_b = all[j];
             if(i != j && dist(self, entity_b) < self.r + entity_b.r && self.r < entity_b.r){
                 entity_b.r += self.r;
-                self.d = die = 1;
-                break;
+                self.d = 1;
             }
         }
 
-        if(die){
+        if(self.d){
             all.splice(i, 1);
         }
     }
