@@ -109,5 +109,5 @@ setInterval(function(){
 }, 15);
 
 b.onmouseup = function(e) {
-    move(player, m.atan2(e.y - player.y, e.x - player.x));
+    move(player, m.atan2(e.clientY - player.y, e.clientX - player.x));
 };
