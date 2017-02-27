@@ -67,8 +67,7 @@ setInterval(function(){
         var self = all[i];
         // ai
         if(!self.t && rng() > .99){
-            var r = 7 * rng();
-            move(self, r);
+            move(self, rng() * 7);
         }
         self.vx *= friction;
         self.vy *= friction;
@@ -110,6 +109,5 @@ setInterval(function(){
 }, 15);
 
 b.onmouseup = function(e) {
-    var r = m.atan2(e.y - player.y, e.x - player.x);
-    move(player, r);
+    move(player, m.atan2(e.y - player.y, e.x - player.x));
 };
